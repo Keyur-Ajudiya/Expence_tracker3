@@ -1,0 +1,44 @@
+﻿@model Expence_tracker3.Context.Category
+
+@{
+    ViewBag.Title = "Expence";
+}
+
+<h2>Category</h2>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+
+@using (Html.BeginForm("AddCategory", "Expence", FormMethod.Post))
+{
+    <div class="container">
+        @*<div class="form-group">
+            <label>CategoryId</label>
+            @Html.ValidationMessageFor(X => X.CategoryId,"",new { @class = "error" })
+            @Html.TextBoxFor(x => x.CategoryId, new { @class = "form-control" })
+
+        </div>*@
+        <div class="form-group">
+            <label>CategoryName</label>
+            @Html.ValidationMessageFor(X => X.CategoryName, "", new { @class = "error" })
+            @Html.TextBoxFor(x => x.CategoryName, new { @class = "form-control" })
+
+        </div>
+        <div class="form-group">
+            <label>CategoryLimit</label>
+            @Html.ValidationMessageFor(X => X.CategoryLimit, "", new { @class = "error" })
+            @Html.TextBoxFor(x => x.CategoryLimit, new { @class = "form-control" })
+
+        </div>
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-danger">Cancel</button>
+
+        </div>
+
+    </div>
+}
+

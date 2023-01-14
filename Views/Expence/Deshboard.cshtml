@@ -1,0 +1,294 @@
+﻿
+@{
+    ViewBag.Title = "Deshboard";
+}
+
+
+<h1 class="text-center"><b>Dashboard</b></h1>
+<script src="~/Scripts/jquery-3.4.1.min.js"></script>
+@*<script>
+        $(function () {
+            $('ul#category li').click(function () {
+                console.log($(this).attr('value'));
+            });
+        });
+    </script>*@
+
+@*<div class="card" style="width: 18rem;">
+        <div class="card-body">
+            <h5 class="card-title">Card title</h5>
+            <table id="category">
+               <tr>
+
+               </tr>
+            </table>
+        </div>
+    </div>*@
+
+
+
+<section>
+    <div class="contanier row">
+        <div float="left" width="50%">
+            <div class="row">
+                <div class="col-6">
+                    <h3 id="TEhead">Total Expense</h3>
+                    <h5 id="Totalexpense"></h5>
+                </div>
+            </div>
+        </div>
+        <div align="right">
+            <div class="row">
+                <div class="col-6">
+                    <h3 id="TEhead">Total Limit</h3>
+                    <h5 id="Total"></h5>
+                </div>
+            </div>
+        </div>
+
+
+        <br />
+
+        @*<div class="card row" style="width: 18rem;">
+            <div class="card-body">
+
+            </div>
+        </div>
+
+        <div class="card row" style="width: 18rem;">
+            <div class="card-body">
+
+            </div>
+        </div>*@
+
+        <div align="center">
+            <b><span>Category List</span></b>
+            <select id="category" class="dropdown">
+                <option value="0" selected>All Expense</option>
+            </select>
+            <br />
+            <br />
+        </div>
+        <div align="center" class="table table-hover">
+            <table id="Expensetbl" class="table table-hover">
+                <tr style="">
+                    <th>Title</th>
+                    <th>Description</th>
+                    <th>Amount</th>
+                    <th>Category</th>
+                    <th>Date</th>
+
+                </tr>
+                <tbody id="Expensetbl1">
+                    <tr>
+                        <td id="Title"></td>
+                        <td id="Description"></td>
+                        <td id="Amount"></td>
+                        <td id="Category"></td>
+                        <td id="Date"></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</section>
+
+<script>
+    var total_limit = 0;
+    var tlconper = 0;
+    var warning;
+
+        $(document).ready(function () {
+
+            //categoryFetch
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44376/api/CategoryAPI/Get',
+                datatype: 'json',
+                success: function (data) {
+                    //console.log(data);
+                    $.each(data, function (index, val) {
+                        //console.log(val)
+                        $('#category').append('<option  value ="' + val.CategoryId + '">' + val.CategoryName + '</option>')
+                        //$('#category').append('<option>' + va.CategoryName + '</option>')
+                    });
+                }
+            });
+
+             //Total limit fech
+            $.ajax({
+                type: 'GET',
+                url: '@Url.Action("Total_limit", "Expense")',
+                datatype: 'json',
+                success: function (data) {
+                    var Tag;
+                    //console.log(data);
+                    $.each(data, function (index, val) {
+                        console.log(val.Total_limit)
+                        var ruppe = '&#8377 <span>' + val.Total_limit + '</span>';
+                        total_limit = '&#8377 <span>' + val.Total_limit + '</span>';
+                        tlconper = val.Total_limit;
+                        $('#Totallimit').html(ruppe);
+                    });
+
+                }
+            });
+
+
+            //allexpensefetch
+            $.ajax({
+                type: 'GET',
+                url: 'https://localhost:44376/api/ExpenseAPI/Get',
+                datatype: 'json',
+                success: function (data) {
+                    var row;
+                    var expense_total = 0;
+                    var te;
+                    //console.log(data);
+                    $.each(data, function (index, val) {
+                        row += "<tr><td>" + val.Title + "</td> <td>" + val.Description
+                            + " </td> <td>" + val.Amount + " </td> <td>" + val.Category.CategoryName + " </td> <td>" + val.date_and_time + " </td></tr>"; 4
+
+                        expense_total += parseInt(val.Amount);
+                        te = '&#8377 <span>' + expense_total + '</span>';
+
+                        if (tlconper < expense_total) {
+                            alert('Expense is Greater Than The Total Limit');
+                            warning = "Total Expense  <i class='fa fa-warning' style='font-size:30px;color:red'></i> ";
+                        }
+                        else {
+                            warning = "Total Expense";
+                        }
+
+                    });
+                    //console.log(expense_total);
+
+                    $('#TEhead').html(warning);
+                    $('#Totalexpense').html(te);
+                    $('#Expensetbl1').html(row);
+                }
+            });
+
+
+
+            //filter expense fetch
+            $('#category').on('change', function () {
+                var Status = $(this).val();
+                console.log(Status);
+
+                if (Status == 0) {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://localhost:44376/api/ExpenseAPI/Get',
+                        datatype: 'json',
+                        success: function (data) {
+                            var row;
+                            var expense_total = 0;
+                            var te;
+                            //console.log(data);
+                            $.each(data, function (index, val) {
+
+                                row += "<tr><td>" + val.Title + "</td> <td>" + val.Description
+                                     + " </td> <td>" + val.Amount + " </td> <td>" + val.Category.CategoryName + " </td> <td>" + val.date_and_time + " </td></tr > ";
+                                expense_total += val.Amount;
+                                te = '&#8377 <span>' + expense_total + '</span>';
+
+                                if (tlconper < expense_total) {
+                                    warning = "Total Expense  <i class='fa fa-warning' style='font-size:30px;color:red'></i> ";
+                                }
+                                else {
+                                    warning = "Total Expense";
+                                }
+                            });
+                            $('#TEhead').html(warning);
+                            $('#TLhead').html('Total Limit');
+                            $('#Totallimit').html(total_limit);
+                            $('#Totalexpense').html(te);
+                            $('#Expensetbl1').html(row);
+                        }
+                    });
+                }
+                else {
+                    $.ajax({
+                        type: 'GET',
+                        url: 'https://localhost:44376/api/ExpenseAPI/CategoryVise/' + Status,
+                        datatype: 'json',
+                        success: function (data) {
+                            var row;
+                            var expense_total = 0;
+                            var te;
+                            var categorylimit = 0;
+                            //console.log(data);
+                            if (typeof data !== 'undefined' && data.length > 0) {
+                                $.each(data, function (index, val) {
+                                    //console.log(val)
+                                    row += "<tr><td>" + val.Title + "</td> <td>" + val.Description
+                                        + " </td> <td>" + val.Amount + " </td> <td>" + val.Category.CategoryName + " </td> <td>" + val.date_and_time + " </td></tr>";
+
+                                    expense_total += val.Amount;
+                                    categorylimit = '&#8377 <span>' + val.Category.Cexpense_limit + '</span>';
+                                    //console.log(val.Category.Cexpense_limit)
+                                    te = '&#8377 <span>' + expense_total + '</span>';
+
+                                    if (val.Category.Cexpense_limit < expense_total) {
+                                        alert('Category Expense is Greater Than The Total Category Limit');
+                                        warning = "Total Category Expense  <i class='fa fa-warning' style='font-size:30px;color:red'></i> ";
+                                    }
+                                    else {
+                                        warning = "Total Category Expense";
+                                    }
+
+                                });
+
+                            }
+                            else {
+                                $.ajax({
+                                        type: 'GET',
+                                        url: 'https://localhost:44376/api/CategoryAPI/Get/' + Status,
+                                        datatype: 'json',
+                                        success: function (data) {
+                                            var uclimit = 0;
+                                            var uctotal = 0;
+
+                                            console.log(data);
+                                            //$.each(data, function (index, cdata) {
+
+                                            uclimit = '&#8377 <span>' + data.Cexpense_limit + '</span>';
+                                            console.log(categorylimit);
+                                            //});
+
+                                            $('#Totallimit').html(uclimit);
+                                            $('#Totalexpense').html(0);
+                                            $('#Expensetbl1').html('<tr align="center" style="color:red"><td>No Data Found</td></tr>');
+                                        }
+                                    });
+
+                            }
+
+
+                            $('#TEhead').html(warning);
+                            $('#TLhead').html('Total Category Limit');
+                            $('#Totallimit').html(categorylimit);
+                            $('#Totalexpense').html(te);
+                            $('#Expensetbl1').html(row);
+                        }
+                    });
+                }
+
+            });
+
+        });
+
+
+
+
+
+
+
+
+
+
+
+
+</script>
+

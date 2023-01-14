@@ -1,0 +1,39 @@
+﻿@model List<Expence_tracker3.Context.ExpenceData>
+
+@{
+    ViewBag.Title = "ExpenceList";
+}
+
+<h2>ExpenceList</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>ExpenceId</th>
+        <th>Title</th>
+        <th>Description</th>
+        <th>Amount</th>
+        <th>CategoryId</th>
+        <th>date_and_time</th>
+        <th>Action</th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.ExpenceId</td>
+            <td>@item.Title</td>
+            <td>@item.Description</td>
+            <td>@item.Amount</td>
+            <td>@item.CategoryId</td>
+            <td>@item.date_and_time</td>
+            <td>
+                <a href="@Url.Action("EditExpence",new { id =  item.ExpenceId})" class="btn btn-success">Edit</a>
+                <a href="@Url.Action("DeleteEx",new { item.ExpenceId})" class="btn btn-danger">Delete</a>
+
+            </td>
+        </tr>
+    }
+
+
+</table>
+

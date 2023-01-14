@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Expence_trackerModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="CategoryName" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="CategoryLimit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="ExpenceDatas" Relationship="Self.FK_ExpenceData_Category1" FromRole="Category" ToRole="ExpenceData" />
+  </EntityType>
+  <EntityType Name="ExpenceData">
+    <Key>
+      <PropertyRef Name="ExpenceId" />
+    </Key>
+    <Property Name="ExpenceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Title" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="Description" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+    <Property Name="Amount" Type="Int32" />
+    <Property Name="CategoryId" Type="Int32" />
+    <Property Name="date_and_time" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="Category" Relationship="Self.FK_ExpenceData_Category1" FromRole="ExpenceData" ToRole="Category" />
+  </EntityType>
+  <Association Name="FK_ExpenceData_Category1">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="ExpenceData" Type="Self.ExpenceData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="ExpenceData">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Expence_trackerEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Categories" EntityType="Self.Category" />
+    <EntitySet Name="ExpenceDatas" EntityType="Self.ExpenceData" />
+    <AssociationSet Name="FK_ExpenceData_Category1" Association="Self.FK_ExpenceData_Category1">
+      <End Role="Category" EntitySet="Categories" />
+      <End Role="ExpenceData" EntitySet="ExpenceDatas" />
+    </AssociationSet>
+    <EntitySet Name="TotalLimits" EntityType="Expence_trackerModel.TotalLimit" />
+  </EntityContainer>
+  <EntityType Name="TotalLimit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="Total_limit" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+  </EntityType>
+</Schema>

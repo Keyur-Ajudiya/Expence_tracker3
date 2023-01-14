@@ -1,0 +1,55 @@
+﻿@model Expence_tracker3.Context.ExpenceData
+
+@{
+    ViewBag.Title = "CreateExp";
+}
+
+<h2>Expences</h2>
+<style>
+    .error {
+        color: red;
+    }
+</style>
+
+@using (Html.BeginForm("AddExpence", "Expence", FormMethod.Post))
+ {
+    <div class="container">
+        <!--<div class="form-group">
+            <label>ExpenceId</label>-->
+            @*@Html.ValidationMessageFor(X => X.ExpenceId, "", new { @class = "error" })*@
+            <!--@Html.TextBoxFor(x => x.ExpenceId, new { @class = "form-control" })
+        </div>-->
+        <div class="form-group">
+            <label>Title</label>
+            @Html.ValidationMessageFor(X => X.Title, "", new { @class = "error" })
+            @Html.TextBoxFor(x => x.Title, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Description</label>
+            @Html.ValidationMessageFor(X => X.Description, "", new { @class = "error" })
+            @Html.TextAreaFor(x => x.Description, new { @class = "form-control", @rows = "10" })
+        </div>
+        <div class="form-group">
+            <label>Amount</label>
+            @Html.ValidationMessageFor(X => X.Amount, "", new { @class = "error" })
+            @Html.TextBoxFor(x => x.Amount, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>CategoryName</label>
+            @Html.ValidationMessageFor(X => X.CategoryId, "", new { @class = "error" })
+            @Html.DropDownList("CategoryId",null, new { @class = "form-control" })
+        </div>
+        <div class="form-group">
+            <label>Date and Time </label>
+            @Html.ValidationMessageFor(X => X.date_and_time, "", new { @class = "error" })
+            @Html.TextBox("Date", DateTime.Now, new { @disabled = "disabled", @class = "form-control" })
+        </div>
+
+        <div class="form-group">
+            <button type="submit" class="btn btn-primary">Submit</button>
+            <button type="reset" class="btn btn-danger">Cancel</button>
+
+        </div>
+    </div>
+ }
+

@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="Expence_trackerModelStoreContainer" CdmEntityContainer="Expence_trackerEntities">
+    <EntitySetMapping Name="Categories">
+      <EntityTypeMapping TypeName="Expence_trackerModel.Category">
+        <MappingFragment StoreEntitySet="Category">
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+          <ScalarProperty Name="CategoryLimit" ColumnName="CategoryLimit" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="ExpenceDatas">
+      <EntityTypeMapping TypeName="Expence_trackerModel.ExpenceData">
+        <MappingFragment StoreEntitySet="ExpenceData">
+          <ScalarProperty Name="ExpenceId" ColumnName="ExpenceId" />
+          <ScalarProperty Name="Title" ColumnName="Title" />
+          <ScalarProperty Name="Description" ColumnName="Description" />
+          <ScalarProperty Name="Amount" ColumnName="Amount" />
+          <ScalarProperty Name="CategoryId" ColumnName="CategoryId" />
+          <ScalarProperty Name="date_and_time" ColumnName="date_and_time" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="TotalLimits">
+      <EntityTypeMapping TypeName="Expence_trackerModel.TotalLimit">
+        <MappingFragment StoreEntitySet="TotalLimit">
+          <ScalarProperty Name="Total_limit" ColumnName="Total_limit" />
+          <ScalarProperty Name="id" ColumnName="id" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="Expence_trackerModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Category">
+    <Key>
+      <PropertyRef Name="CategoryId" />
+    </Key>
+    <Property Name="CategoryId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="CategoryName" Type="varchar" MaxLength="50" />
+    <Property Name="CategoryLimit" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="ExpenceData">
+    <Key>
+      <PropertyRef Name="ExpenceId" />
+    </Key>
+    <Property Name="ExpenceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Title" Type="varchar" MaxLength="50" />
+    <Property Name="Description" Type="varchar" MaxLength="100" />
+    <Property Name="Amount" Type="int" />
+    <Property Name="CategoryId" Type="int" />
+    <Property Name="date_and_time" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="TotalLimit">
+    <Key>
+      <PropertyRef Name="id" />
+    </Key>
+    <Property Name="id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="Total_limit" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_ExpenceData_Category1">
+    <End Role="Category" Type="Self.Category" Multiplicity="0..1" />
+    <End Role="ExpenceData" Type="Self.ExpenceData" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="Category">
+        <PropertyRef Name="CategoryId" />
+      </Principal>
+      <Dependent Role="ExpenceData">
+        <PropertyRef Name="CategoryId" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="Expence_trackerModelStoreContainer">
+    <EntitySet Name="Category" EntityType="Self.Category" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="ExpenceData" EntityType="Self.ExpenceData" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="TotalLimit" EntityType="Self.TotalLimit" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_ExpenceData_Category1" Association="Self.FK_ExpenceData_Category1">
+      <End Role="Category" EntitySet="Category" />
+      <End Role="ExpenceData" EntitySet="ExpenceData" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>
