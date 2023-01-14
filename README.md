@@ -33,11 +33,9 @@ And now open the `dashboard.cshtml` file and run the project.
 
 # Project Images
 
-![Alt Image text](C:\Users\Dell\OneDrive\Desktop\Expence_tracker3\Readme_Images/Deshbord.png?raw=true "Deshbord"),
+![Alt Image text](Readme_Images/Deshbord.png?raw=true "Deshbord"),
 ![Alt Image text](Readme_Images/Category.png?raw=true "Category")
 ![Alt Image text](Readme_Images/Catagorylist.png?raw=true "Catagorylist")
 ![Alt Image text](Readme_Images/Expances.png?raw=true "Expances")
 ![Alt Image text](Readme_Images/Expancelist.png?raw=true "Expancelist")
 ![Alt Image text](Readme_Images/TotalLimit.png?raw=true "TotalLimit")
-
-Catagorylist.png
