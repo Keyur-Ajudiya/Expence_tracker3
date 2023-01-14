@@ -35,17 +35,22 @@ And now open the `dashboard.cshtml` file and run the project.
 
 `Deshbord`
 ![Alt Image text](Readme_Images/Deshbord.png?raw=true "Deshbord")
+
 `Category`
 ![Alt Image text](Readme_Images/Category.png?raw=true "Category")
+
 `Catagorylist`
 ![Alt Image text](Readme_Images/Catagorylist.png?raw=true "Catagorylist")
+
 `Expances`
 ![Alt Image text](Readme_Images/Expances.png?raw=true "Expances")
+
 `Expancelist`
 ![Alt Image text](Readme_Images/Expancelist.png?raw=true "Expancelist")
+
 `TotalLimit`
 ![Alt Image text](Readme_Images/TotalLimit.png?raw=true "TotalLimit")
 
-`Developer informations`
+# Developer informations
 - Developer Name - Keyur Ajudiya
 - Contect us - +91 6353417957
